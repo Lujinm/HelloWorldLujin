@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct addingGournalPage: View {
+    @Binding var showAddJournalSheet: Bool
+
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    addingGournalPage()
+    addingGournalPage(showAddJournalSheet: .constant(true))
 }

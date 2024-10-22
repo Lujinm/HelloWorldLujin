@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isActive = true
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+                if isActive{
+                    splashScreen(isActive: $isActive)}
+                
+            else{
+                VStack{
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(Color.blue)
+                        .frame(width: 380, height: 180)
+                    Text("lujin")
+                }
+            }
         }
-        .padding()
     }
 }
-
 #Preview {
     ContentView()
 }
