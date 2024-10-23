@@ -9,22 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     @State var isActive = true
+    @StateObject var database = JournalDatabase()
     var body: some View {
         NavigationStack {
-                if isActive{
-                    splashScreen(isActive: $isActive)}
-                
-            else{
-                VStack{
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(Color.blue)
-                        .frame(width: 380, height: 180)
-                    Text("lujin")
+            if isActive {
+                splashScreen(isActive: $isActive)
+            } else {
+                if database.entries.isEmpty {
+                    emptyStatePage(database: database)
+                } else {
+                    mainPage(database: database)
                 }
             }
         }
     }
 }
+
 #Preview {
     ContentView()
 }
+
