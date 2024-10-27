@@ -34,29 +34,34 @@ struct mainPage: View {
                                             .foregroundColor(Color.mypurple2)
                                         Spacer()
                                         // Swipe actions to edit and delete
-                                        Button(action: {
-                                            // Action to edit
-                                        }) {
-                                            Image(systemName: "square.and.pencil")
-                                                .foregroundColor(.blue)
-                                        }
-                                        Button(action: {
-                                            // Action to delete
-                                           // deleteEntry(entry)
-                                        }) {
-                                            Image(systemName: "trash")
-                                                .foregroundColor(.red)
-                                        }
+//                                        Button(action: {
+//                                            // Action to edit
+//                                        }) {
+//                                            Image(systemName: "square.and.pencil")
+//                                                .foregroundColor(.blue)
+//                                        }
+//                                        Button(action: {
+//                                            // Action to delete
+//                                           // deleteEntry(entry)
+//                                        }) {
+//                                            Image(systemName: "trash")
+//                                                .foregroundColor(.red)
+//                                        }
                                     }
+                                    
+                                    Text(entry.date)
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.gray)
+                                        .padding(.bottom, 3.0)
                                     
                                     Text(entry.content)
                                         .font(.system(size: 18))
                                         .foregroundColor(.white)
                                         .multilineTextAlignment(.leading)
                                     
-                                    Text(entry.date)
-                                        .font(.system(size: 16))
-                                        .foregroundColor(.gray)
+//                                    Text(entry.date)
+//                                        .font(.system(size: 16))
+//                                        .foregroundColor(.gray)
                                 }
                                 .padding()
                                 .background(Color.mygray)
