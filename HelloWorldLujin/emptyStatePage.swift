@@ -10,12 +10,17 @@ import SwiftUI
 struct emptyStatePage: View {
     @State var showAddJournalSheet = false
     @ObservedObject var database: JournalDatabase
+    
     func bookmark() {
         print("Bookmark action")
     }
     func date() {
         print("Date action")
     }
+    func all() {
+        print("all action")
+    }
+    
     var body: some View {
         ZStack {
             Color(.black)
@@ -45,6 +50,7 @@ struct emptyStatePage: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Menu {
+                            Button("all Journals", action: all)
                             Button("Bookmark", action: bookmark)
                             Button("Journal Date", action: date)
                         } label: {
@@ -68,9 +74,8 @@ struct emptyStatePage: View {
                                 Image(systemName: "plus")
                                     .frame(width: 23, height: 26)
                             }
-                            .sheet(isPresented:
-                                    $showAddJournalSheet) {
-                                addingJournalPage(showAddJournalSheet: $showAddJournalSheet, database: database)
+                            .sheet(isPresented: $showAddJournalSheet) {
+                                addingJournalPage(showAddJournalSheet: $showAddJournalSheet, database: database, editingEntry: .constant(nil))
                             }
                         }
                     }

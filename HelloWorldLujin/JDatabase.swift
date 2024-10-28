@@ -6,17 +6,17 @@
 //
 import SwiftUI
 
-// A simple model for a Journal Entry
 struct JDatabase: Identifiable, Codable {
     var id = UUID()
     var title: String
     var content: String
     var date: String
+    var isBookmarked: Bool = false
 }
-// Database to store journal entries
+
 class JournalDatabase: ObservableObject {
     @Published var entries: [JDatabase] = []
-    // Save and Load functionality
+    
     init() {
         loadEntries()
     }
@@ -25,6 +25,14 @@ class JournalDatabase: ObservableObject {
         let newEntry = JDatabase(title: title, content: content, date: date)
         entries.append(newEntry)
         saveEntries()
+    }
+    
+    func updateEntry(entry: JDatabase, title: String, content: String) {
+        if let index = entries.firstIndex(where: { $0.id == entry.id }) {
+            entries[index].title = title
+            entries[index].content = content
+            saveEntries()
+        }
     }
     
     func saveEntries() {

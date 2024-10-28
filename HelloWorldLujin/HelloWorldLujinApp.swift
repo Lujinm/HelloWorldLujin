@@ -11,8 +11,7 @@ import SwiftUI
 struct HelloWorldLujinApp: App {
     var body: some Scene {
         WindowGroup {
-           // ContentView()
-            mainPage()
+           ContentView()
         }
     }
 }
