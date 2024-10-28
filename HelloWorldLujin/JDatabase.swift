@@ -16,7 +16,6 @@ struct JDatabase: Identifiable, Codable {
 // Database to store journal entries
 class JournalDatabase: ObservableObject {
     @Published var entries: [JDatabase] = []
-    
     // Save and Load functionality
     init() {
         loadEntries()

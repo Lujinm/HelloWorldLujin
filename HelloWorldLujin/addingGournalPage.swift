@@ -13,7 +13,6 @@ struct addingJournalPage: View {
     @State private var journalEntry: String = ""
     @ObservedObject var database: JournalDatabase
     
-    // Fetch the current date from the system
     var currentDate: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -30,19 +29,14 @@ struct addingJournalPage: View {
                         .font(.system(size: 34 , weight: .bold))
                         .frame(width: 358.96, height: 41, alignment: .leading)
                         .padding(.top, 30)
-                    
-                    //                    }
+                
                     
                     Text(currentDate)
-                    //                    .padding(.trailing, 273.0)
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color.lightGray)
                         .frame(width: 87.4, height: 19, alignment: .leading)
-                    //  .font(.system(size: 16, weight: .regular))
                         .padding(.trailing, 273.0)
                     
-                    
-                    //                    Section(header: Text("Journal Entry")) {
                     TextField("Type your Journal...", text: $journalEntry, axis: .vertical)
                         .font(.system(size: 20))
                         .frame(width: 380, height: 400, alignment: .topLeading)
@@ -50,12 +44,6 @@ struct addingJournalPage: View {
                         .padding(.trailing, 10)
                         .padding(.bottom, 170)
                         .padding(.leading, 28)
-                    //                    }
-                    
-                    //                    Section(header: Text("Date")) {
-                    //                        Text(currentDate)
-                    //                    }
-                    //                }
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -67,8 +55,6 @@ struct addingJournalPage: View {
                             showAddJournalSheet = false }
                         .bold()
                     }}}}}
-        
-        // Function to save the journal entry to the database
         func saveJournalEntry() {
             if !title.isEmpty && !journalEntry.isEmpty {
                 database.addEntry(title: title, content: journalEntry, date: currentDate)
