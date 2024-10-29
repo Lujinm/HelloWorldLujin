@@ -100,37 +100,31 @@ struct mainPage: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
-                        Menu {
-                            Button("All Journals") {
-                                database.showAllEntries()
-                            }
-                            Button("Bookmark") {
-                                database.filterByBookmark()
-                            }
-                            Button("Journal Date") {
-                                database.filterByDate()
-                            }
-                        } label: {
-                            ZStack {
-                                Circle()
-                                    .fill(.mygray)
-                                    .frame(width: 30, height: 30)
+                        HStack(spacing:-4){
+                            Menu {
+                                Button("All Journals") {
+                                    database.showAllEntries()
+                                }
+                                Button("Bookmark") {
+                                    database.filterByBookmark()
+                                }
+                                Button("Journal Date") {
+                                    database.filterByDate()
+                                }
+                            } label: {
                                 Image(systemName: "line.3.horizontal.decrease")
-                                    .frame(width: 23, height: 21)
+                                    .frame(width: 40, height: 30)
+                                    .background(.mygray)
+                                    .clipShape(Circle())
                             }
-                        }
-                    }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        ZStack {
-                            Circle()
-                                .fill(.mygray)
-                                .frame(width: 30, height: 30)
                             Button(action: {
                                 editingEntry = nil
                                 showAddJournalSheet.toggle()
                             }) {
                                 Image(systemName: "plus")
-                                    .frame(width: 23, height: 26)
+                                    .frame(width: 40, height: 30)
+                                    .background(.mygray)
+                                    .clipShape(Circle())
                             }
                             .sheet(isPresented: $showAddJournalSheet) {
                                 addingJournalPage(
