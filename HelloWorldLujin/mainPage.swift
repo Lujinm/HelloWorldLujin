@@ -15,6 +15,7 @@ struct mainPage: View {
     
     func deleteEntry(at offsets: IndexSet) {
         database.entries.remove(atOffsets: offsets)
+        database.filteredEntries = database.entries
         database.saveEntries()
     }
 
@@ -22,21 +23,10 @@ struct mainPage: View {
         if let index = database.entries.firstIndex(where: { $0.id == entry.id }) {
             database.entries[index].isBookmarked.toggle()
             database.saveEntries()
+            database.filteredEntries = database.entries
         }
     }
-    
-    func bookmark() {
-        print("bookmark action")
-    }
-    
-    func date() {
-        print("Date action")
-    }
-    
-    func all() {
-        print("all action")
-    }
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -44,7 +34,7 @@ struct mainPage: View {
                     .ignoresSafeArea()
                 
                 List {
-                    ForEach(database.entries) { entry in
+                    ForEach(database.filteredEntries) { entry in
                         VStack(alignment: .leading) {
                             HStack {
                                 Text(entry.title)
@@ -76,6 +66,7 @@ struct mainPage: View {
                             Button(role: .destructive) {
                                 if let index = database.entries.firstIndex(where: { $0.id == entry.id }) {
                                     database.entries.remove(at: index)
+                                    database.filteredEntries = database.entries
                                     database.saveEntries()
                                 }
                             } label: {
@@ -97,12 +88,28 @@ struct mainPage: View {
                 .listRowSpacing(15)
                 .navigationTitle("Journal")
                 .searchable(text: $searchText)
+                .onChange(of: searchText) {
+                    if searchText.isEmpty {
+                        database.filteredEntries = database.entries
+                    } else {
+                        database.filteredEntries = database.entries.filter { entry in
+                            entry.title.lowercased().contains(searchText.lowercased()) ||
+                            entry.content.lowercased().contains(searchText.lowercased())
+                        }
+                    }
+                }
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Menu {
-                            Button("all Journals", action: all)
-                            Button("Bookmark", action: bookmark)
-                            Button("Journal Date", action: date)
+                            Button("All Journals") {
+                                database.showAllEntries()
+                            }
+                            Button("Bookmark") {
+                                database.filterByBookmark()
+                            }
+                            Button("Journal Date") {
+                                database.filterByDate()
+                            }
                         } label: {
                             ZStack {
                                 Circle()
